@@ -23,12 +23,8 @@ toolchain {
   tool_path { name: "cpp" path: "/usr/bin/avr-cpp" }
   tool_path { name: "dwp" path: "/usr/bin/avr-dwp" }
   tool_path { name: "gcc" path: "/usr/bin/avr-gcc" }
-  # TODO(bazel-team): In theory, the path here ought to exactly match the path
-  # used by gcc. That works because bazel currently doesn't track files at
-  # absolute locations and has no remote execution, yet. However, this will need
-  # to be fixed, maybe with auto-detection?
-  cxx_builtin_include_directory: "/usr/lib/gcc"
-  cxx_builtin_include_directory: "/usr/include"
+  cxx_builtin_include_directory: "/usr/lib/gcc/avr/4.9.2/include"
+  cxx_builtin_include_directory: "/usr/lib/avr/include"
   tool_path { name: "gcov" path: "avr-gcov" }
   tool_path { name: "ld" path: "/usr/bin/avr-ld" }
   tool_path { name: "nm" path: "/usr/bin/avr-nm" }

@@ -1,9 +1,41 @@
-build --crosstool_top=//toolchain --host_crosstool_top=//tools/cpp:toolchain --use_isystem_for_includes=0
+# Bazel configuration for compiling for MCUs (so far limited to AVR support).
 
-build:328p --cpu=avr
-build:328p --define MCU=atmega328p
-build:328p --define COM=/dev/ttyUSB0
-build:328p --define PROGR=arduino
-build:328p --copt -Os
-build:328p --copt -DF_CPU=16000000
-build:328p --cxxopt -std=c++11
+build --crosstool_top=//toolchain
+build --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+# Turn various gcc warnings into errors.
+build --copt -Werror
+build --copt -Wall
+
+# Always optimize for size.
+build --copt -Os
+
+# Use C99 features when compiling C.
+build --copt -std=c99
+# Use C++11 features when compiling C++.
+build --cxxopt -std=c++11
+
+# General AVR configuration.
+build:avr --cpu=avr
+
+# ATTiny85 configuration.
+build:attiny85 --config avr
+build:attiny85 --define MCU=attiny85
+build:attiny85 --copt -mmcu=attiny85
+build:attiny85 --linkopt -mmcu=attiny85
+
+# ATMega328p configuration
+build:atmega328p --config avr
+build:atmega328p --define MCU=atmega328p
+build:atmega328p --copt -mmcu=atmega328p
+build:atmega328p --linkopt -mmcu=atmega328p
+
+# Clock configurations
+build:clock_8mhz --copt -DF_CPU=8000000
+build:clock_16mhz --copt -DF_CPU=16000000
+
+# AVR Dragon in-system programmer configuration
+build:programmer_dragon_isp --define PROGR=dragon_isp
+
+# Arduino USB programmer configuration.
+build:programmer_arduino --define PROGR=arduino

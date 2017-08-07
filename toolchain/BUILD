@@ -5,11 +5,11 @@ filegroup(
     srcs = [],
 )
 
-filegroup(
+cc_toolchain_suite(
     name = "toolchain",
-    srcs = [
-        ":cc-compiler-avr",
-    ],
+    toolchains = {
+      "avr|avr-gcc": ":cc-compiler-avr",
+    },
 )
 
 cc_toolchain(

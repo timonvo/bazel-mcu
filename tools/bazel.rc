@@ -37,5 +37,9 @@ build:clock_16mhz --copt -DF_CPU=16000000
 # AVR Dragon in-system programmer configuration
 build:programmer_dragon_isp --define PROGR=dragon_isp
 
+# AVR Dragon DebugWire programmer configuration (requires DWEN fuse is
+# programmed first!)
+build:programmer_dragon_dw --define PROGR=dragon_dw
+
 # Arduino USB programmer configuration.
 build:programmer_arduino --define PROGR=arduino
